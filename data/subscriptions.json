@@ -1,0 +1,16 @@
+{
+  "sing-box": {
+    "type": "sing-box",
+    "uri": ""
+  },
+  "clash": {
+    "type": "clash",
+    "uri": ""
+  },
+  "nodes": {
+    "type": "nodes",
+    "nodes": [
+      
+    ]
+  }
+}
