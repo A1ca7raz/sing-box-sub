@@ -6,7 +6,7 @@ import * as Singbox from "@/utils/parser/singbox"
 const Structure = [ "log", "dns", "ntp", "inbounds", "outbounds", "route", "experimental" ]
 
 function applyFilter(nodes, regex) {
-  const filter = new RegExp(regex.toString(), 'g')
+  const filter = new RegExp(regex.toString())
   return nodes.filter(v => filter.test(v["tag"].toString()))
 }
 
