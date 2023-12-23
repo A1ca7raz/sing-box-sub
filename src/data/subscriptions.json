@@ -1,16 +1,14 @@
 {
   "sing-box": {
     "type": "sing-box",
-    "uri": ""
+    "uri": "https://subscription.com/sing-box"
   },
   "clash": {
     "type": "clash",
-    "uri": ""
+    "uri": "https://subscription.com/clash"
   },
   "nodes": {
     "type": "nodes",
-    "nodes": [
-      
-    ]
+    "nodes": []
   }
 }

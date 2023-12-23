@@ -1,0 +1,45 @@
+{
+  "dns": {
+    "fakeip": {
+      "enabled": true,
+      "inet4_range": "198.18.0.0/15",
+      "inet6_range": "fc00::/18"
+    },
+    "final": "GLOBAL",
+    "independent_cache": true,
+    "servers": [
+      { "address": "https://8.8.8.8/dns-query", "tag": "GLOBAL" },
+      { "address": "fakeip", "tag": "REMOTE" }
+    ]
+  },
+  "inbounds": [
+    {
+      "auto_route": true,
+      "inet4_address": "172.19.0.1/30",
+      "sniff": true,
+      "strict_route": false,
+      "tag": "tun",
+      "type": "tun"
+    }
+  ],
+  "outbounds": [
+    { "tag": "dns-out", "type": "dns" },
+    { "tag": "DIRECT", "type": "direct" },
+    { "tag": "BLOCK", "type": "block" },
+    { "tag": "GLOBAL", "type": "selector", "use": ["clash"] }
+  ],
+  "route": {
+    "auto_detect_interface": true,
+    "final": "GLOBAL",
+    "geoip": {
+      "download_url": "https://github.com/lyc8503/sing-box-rules/releases/latest/download/geoip.db"
+    },
+    "geosite": {
+      "download_url": "https://github.com/lyc8503/sing-box-rules/releases/latest/download/geosite.db"
+    },
+    "rules": [
+      { "outbound": "dns-out", "protocol": "dns" },
+      { "geoip": ["cn", "private"], "geosite": ["cn"], "outbound": "DIRECT" }
+    ]
+  }
+}
