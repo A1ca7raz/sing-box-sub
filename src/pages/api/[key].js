@@ -17,7 +17,7 @@ function useFilter(outbound, subs) {
    */
   if (! (outbound["type"] == "selector" && outbound.hasOwnProperty("use") && Array.isArray(outbound["use"])))
     return outbound
-  
+
   let nodes = []
   outbound["use"].forEach(v => {
     switch (typeof v) {
@@ -25,7 +25,7 @@ function useFilter(outbound, subs) {
         if (subs.hasOwnProperty(v))
           nodes = nodes.concat(subs[v])
         break;
-    
+
       case "object":
         let sub
         if ( sub = Object.keys(v)[0] && subs.hasOwnProperty(sub))
@@ -50,13 +50,13 @@ function useFilter(outbound, subs) {
 }
 
 function parseOutbounds(subs) {
+  let outbounds = []
   if (Template.hasOwnProperty("outbounds") && Array.isArray(Template["outbounds"]))
-    Template["outbounds"].map(outbound => useFilter(outbound, subs))
-  else
-    Template["outbounds"] = []
+    outbounds = Template["outbounds"].map(outbound => useFilter(outbound, subs))
 
   for (const nodes of Object.values(subs))
-    Template["outbounds"] = Template["outbounds"].concat(nodes)
+    outbounds = outbounds.concat(nodes)
+  return outbounds
 }
 
 export default async function handler(req, res) {
@@ -75,12 +75,11 @@ export default async function handler(req, res) {
     }
   }
 
-  parseOutbounds(subs)
-  
   let result = {}
   for (const [n, v] of Object.entries(Template))
     if (Structure.includes(n))
       result[n] = v
+  result["outbounds"] = parseOutbounds(subs)
 
   res.status(200).json(result)
 }
