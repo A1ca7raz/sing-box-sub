@@ -81,5 +81,7 @@ export default async function handler(req, res) {
       result[n] = v
   result["outbounds"] = parseOutbounds(subs)
 
-  res.status(200).json(result)
+  res
+    .status(200)
+    .send(JSON.stringify(result, null, 2))
 }
