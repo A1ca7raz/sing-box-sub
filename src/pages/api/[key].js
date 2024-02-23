@@ -12,8 +12,8 @@ function applyFilter(nodes, regex) {
 
 function useFilter(outbound, subs) {
   /** Modes
-   * 1. use: [ "sub1", "sub2" ]
-   * 2. use: [ { name: "sub1", filter: "regex" } ]
+   * 1. use: [ "sub_name" ]
+   * 2. use: [ { "sub_name": "filter_regex" } ]
    */
   if (! (outbound["type"] == "selector" && outbound.hasOwnProperty("use") && Array.isArray(outbound["use"])))
     return outbound
@@ -27,12 +27,11 @@ function useFilter(outbound, subs) {
         break;
 
       case "object":
-        let sub
-        if ( sub = Object.keys(v)[0] && subs.hasOwnProperty(sub))
-          if (v[sub].hasOwnProperty("filter")) {
-            const filteredNodes = applyFilter(subs[sub], v[sub].filter)
-            nodes = nodes.concat(filteredNodes)
-          }
+        let sub = Object.keys(v)[0]
+        if (subs.hasOwnProperty(sub)) {
+          const filteredNodes = applyFilter(subs[sub], v[sub])
+          nodes = nodes.concat(filteredNodes)
+        }
         break;
     }
   })

@@ -27,6 +27,7 @@
     { "tag": "DIRECT", "type": "direct" },
     { "tag": "BLOCK", "type": "block" },
     { "tag": "GLOBAL", "type": "selector", "use": ["clash"] }
+    { "tag": "EXAMPLE", "type": "selector", "use": [ "clash", { "sing-box": "Japan" } ] }
   ],
   "route": {
     "auto_detect_interface": true,
